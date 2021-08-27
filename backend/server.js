@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
 
 app.get("/api", (req, res) => {
   Solve.find({}).then((solves) => {
-    console.log(solves);
     res.json(solves);
   });
 });
@@ -29,7 +28,6 @@ app.get("/api/solves/fastestTen", (req, res) => {
 app.get("/api/solves/:name", (req, res) => {
   console.log(req.params.name);
   Solve.find({ name: req.params.name }).then((solves) => {
-    console.log(solves);
     res.json(solves);
   });
 });
