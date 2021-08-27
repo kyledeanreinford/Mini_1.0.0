@@ -20,6 +20,10 @@ app.get("/api/solves/fastestTen", (req, res) => {
   ]);
 });
 
+app.get("/api/solves/:id", (req, res) => {
+  res.send(req.params.id + `'s Stats`);
+});
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
