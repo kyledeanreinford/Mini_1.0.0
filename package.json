@@ -7,5 +7,8 @@
   },
   "repository": "git@github.com:kyledeanreinford/Mini_1.0.0.git",
   "author": "Kyle Dean Reinford <kyledeanreinford@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
 }
