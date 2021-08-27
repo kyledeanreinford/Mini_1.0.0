@@ -2,6 +2,9 @@
   "name": "Mini",
   "version": "1.0.0",
   "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
   "repository": "git@github.com:kyledeanreinford/Mini_1.0.0.git",
   "author": "Kyle Dean Reinford <kyledeanreinford@gmail.com>",
   "license": "MIT"
