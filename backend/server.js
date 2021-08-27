@@ -37,8 +37,13 @@ app.get("/api/solves/:name", (req, res) => {
 app.get("/api/solves/:name/fastest", (req, res) => {
   Solve.find({ name: req.params.name }).then((solves) => {
     const participated = solves.filter((solve) => solve.time !== "--");
+    const totalSolveTime = participated.reduce((a, b) => {
+      return a + Number(b.time);
+    }, 0);
+    const average = totalSolveTime / participated.length;
     participated.sort((a, b) => a.time - b.time);
-    res.json(participated.slice(0, 5));
+    const fastest = participated.slice(0, 5);
+    res.send({ average, fastest });
   });
 });
 
