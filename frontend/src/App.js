@@ -44,6 +44,11 @@ function App() {
 
   return (
     <div className="App">
+      <div className="Header">
+        <h1>
+          <a href="/">New York Times Mini Leaderboard</a>
+        </h1>
+      </div>
       <div className="nav">
         <ul>
           {players.map((player) => {
@@ -82,7 +87,9 @@ function App() {
         )}
       </div>
       <div className="footer">
-        Made by Kyle Dean Reinford | Mediocre Coder 2021
+        Made by{" "}
+        <a href="https://github.com/kyledeanreinford">Kyle Dean Reinford</a> |
+        Mediocre Coder 2021
       </div>
     </div>
   );

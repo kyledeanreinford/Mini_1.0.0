@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node backend/server.js",
+    "deploy": "git push heroku main"
   },
   "repository": "git@github.com:kyledeanreinford/Mini_1.0.0.git",
   "author": "Kyle Dean Reinford <kyledeanreinford@gmail.com>",

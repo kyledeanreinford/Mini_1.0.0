@@ -168,10 +168,16 @@ ul {
   padding-inline-start: 0;
 }
 
+h1 {
+  font-size: 2.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 h2 {
   margin-top: 1.25em;
+  margin-bottom: 0.75em;
   font-size: 2em;
-  font-weight: bold;
 }
 
 h3 {
@@ -188,4 +194,9 @@ h3 {
   bottom: 5px;
   text-align: center;
   width: 100%;
+}
+
+a {
+  color: #333333;
+  text-decoration: none;
 }
