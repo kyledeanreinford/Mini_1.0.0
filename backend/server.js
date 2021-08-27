@@ -26,8 +26,20 @@ app.get("/api/solves/fastestTen", (req, res) => {
   ]);
 });
 
-app.get("/api/solves/:id", (req, res) => {
-  res.send(req.params.id + `'s Stats`);
+app.get("/api/solves/:name", (req, res) => {
+  console.log(req.params.name);
+  Solve.find({ name: req.params.name }).then((solves) => {
+    console.log(solves);
+    res.json(solves);
+  });
+});
+
+app.get("/api/solves/:name/fastest", (req, res) => {
+  Solve.find({ name: req.params.name }).then((solves) => {
+    const participated = solves.filter((solve) => solve.time !== "--");
+    participated.sort((a, b) => a.time - b.time);
+    res.json(participated.slice(0, 5));
+  });
 });
 
 app.listen(PORT, () => {
