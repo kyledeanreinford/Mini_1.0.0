@@ -2,15 +2,21 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const Solve = require("./models/solve");
 
 const PORT = process.env.PORT;
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("This is the homepage.");
 });
 
 app.get("/api", (req, res) => {
-  res.send("This is the API");
+  Solve.find({}).then((solves) => {
+    console.log(solves);
+    res.json(solves);
+  });
 });
 
 app.get("/api/solves/fastestTen", (req, res) => {
