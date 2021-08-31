@@ -22,6 +22,27 @@ app.get("/api", (req, res) => {
   });
 });
 
+app.get("/api/solves/", (req, res) => {
+  Solve.find({}).then((solves) => {
+    const participated = solves.filter((solve) => solve.time !== "--");
+    const parsed = participated.map((solve) => ({
+      name: solve.name,
+      time: Number(solve.time),
+      date: solve.date,
+    }));
+
+    const reduced = parsed.reduce((obj, solve) => {
+      let date = solve.date;
+      if (!obj.hasOwnProperty(date)) {
+        obj[date] = [];
+      }
+      obj[date].push(solve);
+      return obj;
+    }, {});
+    res.json(reduced);
+  });
+});
+
 app.get("/api/solves/fastestTen", (req, res) => {
   Solve.find({}).then((solves) => {
     const participated = solves.filter((solve) => solve.time !== "--");
