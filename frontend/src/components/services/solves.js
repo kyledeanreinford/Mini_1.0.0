@@ -34,4 +34,11 @@ const fetchPlayerFastest = (playerName) => {
     });
 };
 
-export default { fastestTen, fetchPlayer, fetchPlayerFastest };
+const getAllByDate = () => {
+  const req = axios.get("/api/solves");
+  return req.then((res) => {
+    return res.data;
+  });
+};
+
+export default { fastestTen, fetchPlayer, fetchPlayerFastest, getAllByDate };

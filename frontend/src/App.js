@@ -6,6 +6,8 @@ import PlayerFastest from "./components/PlayerFastest";
 
 function App() {
   const [fastestTen, setFastestTen] = useState([]);
+  const [winnerList, setWinnerList] = useState([]);
+  const [allByDate, setAllByDate] = useState([]);
   const [currentPlayerSolves, setCurrentPlayerSolves] = useState([]);
   const [currentPlayerName, setCurrentPlayerName] = useState();
   const [currentPlayerFastest, setCurrentPlayerFastest] = useState([]);
@@ -40,13 +42,27 @@ function App() {
     solveService.fastestTen().then((res) => {
       setFastestTen(res);
     });
+    solveService.getAllByDate().then((res) => {
+      let winners = [];
+      Object.entries(res).forEach(([key, value]) => {
+        value.sort((a, b) => a.time - b.time);
+        if (value[0].time !== value[1].time) {
+          winners.push(value[0].name);
+        }
+      });
+      const count = winners.reduce((tally, player) => {
+        tally[player] = (tally[player] || 0) + 1;
+        return tally;
+      }, {});
+      setWinnerList(count);
+    });
   }, []);
 
   return (
     <div className="App">
       <div className="Header">
         <h1>
-          <a href="/">New York Times Mini Leaderboard</a>
+          <a href="/  ">New York Times Mini Leaderboard</a>
         </h1>
       </div>
       <div className="nav">
@@ -76,13 +92,27 @@ function App() {
         {fastestTen && !currentPlayerName && (
           <div>
             <h2>Top 10 Times</h2>
-            {fastestTen.map((solve) => {
+            {fastestTen.map((solve, index) => {
               return (
-                <li key={solve.name}>
+                <li key={index}>
                   {solve.name}: {solve.time} seconds
                 </li>
               );
             })}
+          </div>
+        )}
+        {Object.keys(winnerList).length !== 0 && (
+          <div>
+            <h2>Total Wins:</h2>
+            <ul>
+              {Object.entries(winnerList).map(([key, value]) => {
+                return (
+                  <li key={key}>
+                    {key}:{value}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
       </div>

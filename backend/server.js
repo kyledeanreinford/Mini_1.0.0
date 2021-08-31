@@ -53,7 +53,7 @@ app.get("/api/solves/fastestTen", (req, res) => {
 });
 
 app.get("/api/solves/:name", (req, res) => {
-  console.log(req.params.name);
+  console.log("api request for", req.params.name);
   Solve.find({ name: req.params.name }).then((solves) => {
     res.json(solves);
   });
