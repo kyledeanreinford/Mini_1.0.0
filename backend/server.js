@@ -69,7 +69,7 @@ app.get("/api/solves/:name/fastest", (req, res) => {
     participated.sort((a, b) => a.time - b.time);
     const fastest = participated.slice(0, 5);
     const worst = participated.slice(-1)[0];
-    res.send({ average, fastest, worst });
+    res.send({ average, fastest, worst, participated });
   });
 });
 
