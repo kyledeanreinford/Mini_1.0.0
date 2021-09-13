@@ -27,7 +27,8 @@ const fetchPlayerFastest = (playerName) => {
       const average = res.data.average;
       const fastest = res.data.fastest;
       const worst = res.data.worst.time;
-      return { fastest, average, worst };
+      const participated = res.data.participated;
+      return { fastest, average, worst, participated };
     })
     .catch((err) => {
       console.log(err);
