@@ -59,6 +59,21 @@ app.get("/api/solves/:name", (req, res) => {
   });
 });
 
+app.get("/api/lastSevenDays", (req, res) => {
+  const date = new Date();
+  const last = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+  let day = last.getDate();
+  let month = last.getMonth() + 1;
+  const year = last.getFullYear();
+  if (day < 10) day = "0" + day;
+  if (month < 10) month = "0" + month;
+  const sp = "-";
+  const lastWeek = year + sp + month + sp + day;
+  Solve.find({ date: { $gte: lastWeek } }).then((solves) => {
+    res.json(solves);
+  });
+});
+
 app.get("/api/solves/:name/fastest", (req, res) => {
   Solve.find({ name: req.params.name }).then((solves) => {
     const participated = solves.filter((solve) => solve.time !== "--");

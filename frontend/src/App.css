@@ -231,6 +231,12 @@ body {
   z-index: 5;
 }
 
+.graph {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-bottom: 30px;
+}
+
 ul {
   padding-inline-start: 0;
 }
@@ -268,7 +274,6 @@ h4 {
   body {
     line-height: 1;
     height: 100vh;
-    overflow: hidden;
   }
   ol,
   ul {
@@ -357,7 +362,8 @@ h4 {
   .footer {
     position: fixed;
     height: 30px;
-    bottom: 5px;
+    padding-top: 5px;
+    bottom: 0;
     text-align: center;
     width: 100%;
   }

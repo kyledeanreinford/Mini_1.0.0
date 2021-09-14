@@ -5,9 +5,11 @@ import PlayerButton from "./components/PlayerButton";
 import PlayerFastest from "./components/PlayerFastest";
 import TotalWins from "./components/TotalWins";
 import DropdownMenu from "./components/DropdownMenu";
+import LastSeven from "./components/LastSeven";
 
 function App() {
   const [fastestTen, setFastestTen] = useState([]);
+  const [lastSeven, setLastSeven] = useState([]);
   const [winnerList, setWinnerList] = useState([]);
   const [allByDate, setAllByDate] = useState([]);
   const [currentPlayerSolves, setCurrentPlayerSolves] = useState([]);
@@ -65,6 +67,9 @@ function App() {
       }, {});
       setWinnerList(count);
     });
+    solveService.lastSevenDays().then((res) => {
+      setLastSeven(res);
+    });
   }, []);
 
   return (
@@ -93,9 +98,10 @@ function App() {
             participatedLength={participatedLength}
           />
         )}
+        <LastSeven lastSeven={lastSeven} />
         {fastestTen && !currentPlayerName && (
           <div>
-            <h2>Top 10 Times</h2>
+            <h2>Top 10 All Time Solves</h2>
             {fastestTen.map((solve, index) => {
               return (
                 <li className="solve" key={index}>
@@ -103,6 +109,8 @@ function App() {
                 </li>
               );
             })}
+            <br />
+            <br />
           </div>
         )}
         {/* 
