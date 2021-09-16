@@ -1,5 +1,4 @@
 import React from "react";
-import { RadialChart } from "react-vis";
 
 const TotalWins = ({ winnerList, className, players }) => {
   const chartData = Object.entries(winnerList).map(([key, value]) => {
@@ -11,7 +10,7 @@ const TotalWins = ({ winnerList, className, players }) => {
   return (
     <div className={className}>
       <h2>Total Wins:</h2>
-      <RadialChart
+      {/* <RadialChart
         data={chartData}
         showLabels={true}
         colorRange={[
@@ -27,7 +26,7 @@ const TotalWins = ({ winnerList, className, players }) => {
         ]}
         height={600}
         width={600}
-      />
+      /> */}
       <ul>
         {Object.entries(winnerList).map(([key, value]) => {
           return (

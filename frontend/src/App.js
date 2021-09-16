@@ -6,10 +6,12 @@ import PlayerFastest from "./components/PlayerFastest";
 import TotalWins from "./components/TotalWins";
 import DropdownMenu from "./components/DropdownMenu";
 import LastSeven from "./components/LastSeven";
+import Yesterday from "./components/Yesterday";
 
 function App() {
   const [fastestTen, setFastestTen] = useState([]);
   const [lastSeven, setLastSeven] = useState([]);
+  const [yesterday, setYesterday] = useState([]);
   const [winnerList, setWinnerList] = useState([]);
   const [allByDate, setAllByDate] = useState([]);
   const [currentPlayerSolves, setCurrentPlayerSolves] = useState([]);
@@ -20,6 +22,8 @@ function App() {
   const [wins, setWins] = useState();
   const [winPercentage, setWinPercentage] = useState();
   const [participatedLength, setParticipatedLength] = useState();
+  const [maxY, setMaxY] = useState("");
+  const [minY, setMinY] = useState("");
   const [worst, setWorst] = useState();
   const players = [
     { name: "Kyle", alias: "kyledeanreinford" },
@@ -68,7 +72,22 @@ function App() {
       setWinnerList(count);
     });
     solveService.lastSevenDays().then((res) => {
-      setLastSeven(res);
+      const filtered = res.filter((solve) => solve.time !== "--");
+
+      setMaxY(
+        filtered.reduce((prev, current) =>
+          Number(prev.time) > Number(current.time) ? prev : current
+        ).time
+      );
+      setMinY(
+        filtered.reduce((prev, current) =>
+          Number(prev.time) < Number(current.time) ? prev : current
+        ).time
+      );
+      setLastSeven(filtered);
+    });
+    solveService.getYesterday().then((res) => {
+      setYesterday(res);
     });
   }, []);
 
@@ -98,7 +117,13 @@ function App() {
             participatedLength={participatedLength}
           />
         )}
-        <LastSeven lastSeven={lastSeven} />
+        <Yesterday yesterday={yesterday} />
+        <LastSeven
+          lastSeven={lastSeven}
+          yesterday={yesterday}
+          minY={minY}
+          maxY={maxY}
+        />
         {fastestTen && !currentPlayerName && (
           <div>
             <h2>Top 10 All Time Solves</h2>

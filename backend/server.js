@@ -74,6 +74,21 @@ app.get("/api/lastSevenDays", (req, res) => {
   });
 });
 
+app.get("/api/yesterday", (req, res) => {
+  const date = new Date();
+  const last = new Date(date.getTime() - 1 * 24 * 60 * 60 * 1000);
+  let day = last.getDate();
+  let month = last.getMonth() + 1;
+  const year = last.getFullYear();
+  if (day < 10) day = "0" + day;
+  if (month < 10) month = "0" + month;
+  const sp = "-";
+  const yesterday = year + sp + month + sp + day;
+  Solve.find({ date: yesterday }).then((solves) => {
+    res.json(solves);
+  });
+});
+
 app.get("/api/solves/:name/fastest", (req, res) => {
   Solve.find({ name: req.params.name }).then((solves) => {
     const participated = solves.filter((solve) => solve.time !== "--");

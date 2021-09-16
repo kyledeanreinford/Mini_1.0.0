@@ -12,6 +12,17 @@ const fastestTen = () => {
 const lastSevenDays = () => {
   const req = axios.get("/api/lastSevenDays");
   return req
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const getYesterday = () => {
+  const req = axios.get("/api/yesterday");
+  return req
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
@@ -57,4 +68,5 @@ export default {
   fetchPlayerFastest,
   getAllByDate,
   lastSevenDays,
+  getYesterday,
 };
