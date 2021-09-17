@@ -11,7 +11,8 @@ import Yesterday from "./components/Yesterday";
 function App() {
   const [fastestTen, setFastestTen] = useState([]);
   const [lastSeven, setLastSeven] = useState([]);
-  const [yesterday, setYesterday] = useState([]);
+  const [best, setBest] = useState(null);
+  const [worst, setWorst] = useState(null);
   const [winnerList, setWinnerList] = useState([]);
   const [allByDate, setAllByDate] = useState([]);
   const [currentPlayerSolves, setCurrentPlayerSolves] = useState([]);
@@ -24,7 +25,7 @@ function App() {
   const [participatedLength, setParticipatedLength] = useState();
   const [maxY, setMaxY] = useState("");
   const [minY, setMinY] = useState("");
-  const [worst, setWorst] = useState();
+  const [userWorst, setUserWorst] = useState();
   const players = [
     { name: "Kyle", alias: "kyledeanreinford" },
     { name: "Jeffrey", alias: "jalopey" },
@@ -49,7 +50,7 @@ function App() {
       setCurrentPlayerFastest(res.fastest);
       setAverage(res.average.toFixed(2));
       setParticipated(res.participated);
-      setWorst(res.worst);
+      setUserWorst(res.worst);
     });
   };
 
@@ -87,7 +88,8 @@ function App() {
       setLastSeven(filtered);
     });
     solveService.getYesterday().then((res) => {
-      setYesterday(res);
+      setBest([...res].sort((a, b) => a.time - b.time));
+      setWorst([...res].sort((a, b) => b.time - a.time).slice(0, 1));
     });
   }, []);
 
@@ -105,7 +107,7 @@ function App() {
             name={currentPlayerName}
             solves={currentPlayerFastest}
             average={average}
-            worst={worst}
+            worst={userWorst}
             participated={participated}
             winnerList={winnerList}
             wins={wins}
@@ -117,13 +119,8 @@ function App() {
             participatedLength={participatedLength}
           />
         )}
-        <Yesterday yesterday={yesterday} />
-        <LastSeven
-          lastSeven={lastSeven}
-          yesterday={yesterday}
-          minY={minY}
-          maxY={maxY}
-        />
+        {/* <Yesterday best={best} worst={worst} /> */}
+        <LastSeven lastSeven={lastSeven} minY={minY} maxY={maxY} />
         {fastestTen && !currentPlayerName && (
           <div>
             <h2>Top 10 All Time Solves</h2>

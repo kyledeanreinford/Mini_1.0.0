@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 
-const useWindowSize = () => {
-  const [size, setSize] = useState([0, 0]);
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-  return size;
-};
+// const useWindowSize = () => {
+//   const [size, setSize] = useState([0, 0]);
+//   useLayoutEffect(() => {
+//     function updateSize() {
+//       setSize([window.innerWidth, window.innerHeight]);
+//     }
+//     window.addEventListener("resize", updateSize);
+//     updateSize();
+//     return () => window.removeEventListener("resize", updateSize);
+//   }, []);
+//   return size;
+// };
 
 const LastSeven = ({ lastSeven, maxY, minY }) => {
   const [data, setData] = useState([]);
@@ -40,11 +40,11 @@ const LastSeven = ({ lastSeven, maxY, minY }) => {
   return (
     <div className="graph">
       {dataReady === true && (
-        <div style={{ height: 500 }}>
+        <div style={{ height: 600 }}>
           <h2>Last 7 Days</h2>
           <ResponsiveScatterPlot
             data={data}
-            margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+            margin={{ top: 50, right: 60, bottom: 100, left: 60 }}
             xScale={{
               type: "time",
               format: "%Y-%m-%d",
@@ -77,6 +77,29 @@ const LastSeven = ({ lastSeven, maxY, minY }) => {
               tickSize: 5,
               tickValues: "every day",
             }}
+            legends={[
+              {
+                anchor: "top-right",
+                direction: "column",
+                justify: false,
+                translateX: 70,
+                translateY: 50,
+                itemWidth: 80,
+                itemHeight: 12,
+                itemsSpacing: 30,
+                itemDirection: "top-to-bottom",
+                symbolSize: 12,
+                symbolShape: "circle",
+                effect: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemOpacity: 1,
+                    },
+                  },
+                ],
+              },
+            ]}
           />
 
           <br />
