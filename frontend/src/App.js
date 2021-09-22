@@ -146,8 +146,7 @@ function App() {
       </div>
       <div className="footer">
         Made by{" "}
-        <a href="https://github.com/kyledeanreinford">Kyle Dean Reinford</a> |
-        Mediocre Coder 2021
+        <a href="https://github.com/kyledeanreinford">Kyle Dean Reinford</a>
       </div>
     </div>
   );
